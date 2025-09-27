@@ -19,3 +19,14 @@ function divide(a, b) {
         }
     })()
 }
+// returns the result after applying operation to numbers
+function operate(operator, num1, num2) {
+    return (() => {
+        switch(operator) {
+            case "+": return add(num1, num2)
+            case "-": return subtract(num1, num2)
+            case "*": return multiply(num1, num2)
+            case "/": return divide(num1, num2)
+        }
+    })()
+}
