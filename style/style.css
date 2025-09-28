@@ -1,7 +1,23 @@
-.container {
+.calculator {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: darkgray;
+}
+
+.display {
+    padding: 20px;
+    font-size: xx-large;
+    text-align: end;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.buttonContainer {
     display: flex;
     gap: 10px;
-    margin: 10px;
 }
 
 button {

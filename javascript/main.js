@@ -43,7 +43,7 @@ function operate(operator, num1, num2) {
 // returns a container class of button elements
 function getButtonContainer(listSlice) {
     let container = document.createElement("div")
-    container.setAttribute("class", "container")
+    container.setAttribute("class", "buttonContainer")
     container.append(...listSlice)
     return container
 }
@@ -57,14 +57,33 @@ function createButton(n) {
 }
 
 // displays 3 rows of containers with calculator buttons
-function createCalcButtons() {
+function createCalcButtons(calculator) {
     let buttonList = Array.apply(null, Array(9)).map((e, i) => createButton(i+1))
     for (let i = 9; i > 0; i -= 3) {
         let listSlice = buttonList.slice(i-3, i)
         let buttonContainer = getButtonContainer(listSlice)
-        document.body.append(buttonContainer)
+        calculator.append(buttonContainer)
     }
 }
 
+// creates user input display class element
+function createCalcDisplay(calculator) {
+    let display = document.createElement("div")
+    display.setAttribute("class", "display")
+    display.textContent = "|"
+    calculator.append(display)
+}
 
-createCalcButtons()
+// displays calculator to screen
+function createCalculator() {
+    let calculator = document.createElement("div")
+    calculator.setAttribute("class", "calculator")
+
+    createCalcDisplay(calculator)
+    createCalcButtons(calculator)
+
+    document.body.append(calculator)
+}
+
+
+createCalculator()
