@@ -51,7 +51,9 @@ function getButtonContainer(listSlice) {
 // returns an html button element with click listener
 function createButton(n) {
     let button = document.createElement("button")
-    button.addEventListener("click", () => alert(n))
+    button.addEventListener("click", () => {
+        document.getElementById("display").textContent = n
+    })
     button.textContent = n
     return button
 }
@@ -69,7 +71,7 @@ function createCalcButtons(calculator) {
 // creates user input display class element
 function createCalcDisplay(calculator) {
     let display = document.createElement("div")
-    display.setAttribute("class", "display")
+    display.setAttribute("id", "display")
     display.textContent = "|"
     calculator.append(display)
 }
@@ -77,7 +79,7 @@ function createCalcDisplay(calculator) {
 // displays calculator to screen
 function createCalculator() {
     let calculator = document.createElement("div")
-    calculator.setAttribute("class", "calculator")
+    calculator.setAttribute("id", "calculator")
 
     createCalcDisplay(calculator)
     createCalcButtons(calculator)
