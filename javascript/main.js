@@ -1,15 +1,20 @@
+// CALCULATION FUNCTIONS
+
 // adds two numbers
 function add(a, b) {
     return a + b
 }
+
 // subtracts two numbers
 function subtract(a, b) {
     return a - b
 }
+
 // multiplies two numbers
 function multiply(a, b) {
     return a * b
 }
+
 // divides two numbers, if possible
 function divide(a, b) {
     return (() => {
@@ -19,6 +24,7 @@ function divide(a, b) {
         }
     })()
 }
+
 // returns the result after applying operation to numbers
 function operate(operator, num1, num2) {
     return (() => {
@@ -30,3 +36,35 @@ function operate(operator, num1, num2) {
         }
     })()
 }
+
+
+// HTML FUNCTIONS
+
+// returns a container class of button elements
+function getButtonContainer(listSlice) {
+    let container = document.createElement("div")
+    container.setAttribute("class", "container")
+    container.append(...listSlice)
+    return container
+}
+
+// returns an html button element with click listener
+function createButton(n) {
+    let button = document.createElement("button")
+    button.addEventListener("click", () => alert(n))
+    button.textContent = n
+    return button
+}
+
+// displays 3 rows of containers with calculator buttons
+function createCalcButtons() {
+    let buttonList = Array.apply(null, Array(9)).map((e, i) => createButton(i+1))
+    for (let i = 9; i > 0; i -= 3) {
+        let listSlice = buttonList.slice(i-3, i)
+        let buttonContainer = getButtonContainer(listSlice)
+        document.body.append(buttonContainer)
+    }
+}
+
+
+createCalcButtons()

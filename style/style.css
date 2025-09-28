@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+}
+
+button {
+    width: 130px;
+    font-size: x-large;
+    font-weight: bold;
+    border-radius: 10px;
+    padding-block: 10px;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
