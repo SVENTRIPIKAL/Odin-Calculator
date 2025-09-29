@@ -41,9 +41,10 @@ function operate(operator, num1, num2) {
 // HTML FUNCTIONS
 
 // returns a container class of button elements
-function getButtonContainer(operatorList) {
+function getButtonContainer(operatorList, section) {
     let container = document.createElement("div")
-    container.setAttribute("class", "buttonContainer")
+    let containerClass = (section == "end") ? "buttonContainerEnd" : "buttonContainer"
+    container.setAttribute("class", containerClass)
     container.append(...operatorList)
     return container
 }
@@ -63,8 +64,20 @@ function getOperatorList(listSlice, i) {
     return listSlice
 }
 
-// creates mid section of calculator buttons
-function createMidSection(calculator, buttonList) {
+// returns an html button element with click listener
+function createButton(n) {
+    let button = document.createElement("button")
+    let displayText = (n == "C") ? "|" : n
+    button.addEventListener("click", () => {
+        document.getElementById("display").textContent = displayText
+    })
+    button.textContent = n
+    return button
+}
+
+// creates 3 rows of calculator buttons
+function createMidSection(calculator) {
+    let buttonList = Array.apply(null, Array(9)).map((e, i) => createButton(i+1))
     for (let i = 9; i > 0; i -= 3) {
         let listSlice = buttonList.slice(i-3, i)
         let operatorList = getOperatorList(listSlice, i)
@@ -73,20 +86,19 @@ function createMidSection(calculator, buttonList) {
     }
 }
 
-// returns an html button element with click listener
-function createButton(n) {
-    let button = document.createElement("button")
-    button.addEventListener("click", () => {
-        document.getElementById("display").textContent = n
-    })
-    button.textContent = n
-    return button
+// displays 1 row of buttons
+function createSection(calculator, buttonType, operator, section) {
+    let buttonList = Array.apply(null, Array(1)).map((e, i) => createButton(buttonType))
+    let operatorList = getOperatorList(buttonList, operator)
+    let buttonContainer = getButtonContainer(operatorList, section)
+    calculator.append(buttonContainer)
 }
 
-// displays 3 rows of containers with calculator buttons
+// displays 5 rows of containers with calculator buttons
 function createCalcButtons(calculator) {
-    let buttonList = Array.apply(null, Array(9)).map((e, i) => createButton(i+1))
-    createMidSection(calculator, buttonList)
+    createSection(calculator, "C", "dv")
+    createMidSection(calculator)
+    createSection(calculator, "0", "eq", "end")
 }
 
 // creates user input display class element

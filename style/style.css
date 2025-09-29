@@ -18,6 +18,13 @@
 .buttonContainer {
     display: flex;
     gap: 10px;
+    justify-content: space-between;
+}
+
+.buttonContainerEnd {    
+    display: flex;
+    justify-content: end;
+    gap: 70px;
 }
 
 button {
