@@ -41,11 +41,24 @@ function operate(operator, num1, num2) {
 // HTML FUNCTIONS
 
 // returns a container class of button elements
-function getButtonContainer(listSlice) {
+function getButtonContainer(operatorList) {
     let container = document.createElement("div")
     container.setAttribute("class", "buttonContainer")
-    container.append(...listSlice)
+    container.append(...operatorList)
     return container
+}
+
+// returns list with appended operator button
+function getOperatorList(listSlice, i) {
+    let operatorButton = (() => {
+        switch (i) {
+        case 9: return createButton("x")
+        case 6: return createButton("-")
+        case 3: return createButton("+")
+        }
+    })()
+    listSlice.push(operatorButton)
+    return listSlice
 }
 
 // returns an html button element with click listener
@@ -63,7 +76,8 @@ function createCalcButtons(calculator) {
     let buttonList = Array.apply(null, Array(9)).map((e, i) => createButton(i+1))
     for (let i = 9; i > 0; i -= 3) {
         let listSlice = buttonList.slice(i-3, i)
-        let buttonContainer = getButtonContainer(listSlice)
+        let operatorList = getOperatorList(listSlice, i)
+        let buttonContainer = getButtonContainer(operatorList)
         calculator.append(buttonContainer)
     }
 }
