@@ -52,13 +52,25 @@ function getButtonContainer(operatorList) {
 function getOperatorList(listSlice, i) {
     let operatorButton = (() => {
         switch (i) {
-        case 9: return createButton("x")
-        case 6: return createButton("-")
-        case 3: return createButton("+")
+        case 9: return createButton("\u{000D7}")    // multiply
+        case 6: return createButton("\u{02212}")    // subtract
+        case 3: return createButton("\u{0002B}")    // add
+        case "dv": return createButton("\u{000F7}") // divide
+        case "eq": return createButton("\u{0003D}") // equals
         }
     })()
     listSlice.push(operatorButton)
     return listSlice
+}
+
+// creates mid section of calculator buttons
+function createMidSection(calculator, buttonList) {
+    for (let i = 9; i > 0; i -= 3) {
+        let listSlice = buttonList.slice(i-3, i)
+        let operatorList = getOperatorList(listSlice, i)
+        let buttonContainer = getButtonContainer(operatorList)
+        calculator.append(buttonContainer)
+    }
 }
 
 // returns an html button element with click listener
@@ -74,12 +86,7 @@ function createButton(n) {
 // displays 3 rows of containers with calculator buttons
 function createCalcButtons(calculator) {
     let buttonList = Array.apply(null, Array(9)).map((e, i) => createButton(i+1))
-    for (let i = 9; i > 0; i -= 3) {
-        let listSlice = buttonList.slice(i-3, i)
-        let operatorList = getOperatorList(listSlice, i)
-        let buttonContainer = getButtonContainer(operatorList)
-        calculator.append(buttonContainer)
-    }
+    createMidSection(calculator, buttonList)
 }
 
 // creates user input display class element
