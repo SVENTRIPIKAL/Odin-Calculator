@@ -1,3 +1,7 @@
+let num = null
+let total = 0
+let displayTotal = ""
+
 // CALCULATION FUNCTIONS
 
 // adds two numbers
@@ -75,11 +79,38 @@ function getOperatorList(listSlice, i) {
     return listSlice
 }
 
+// returns text to be displayed on screen
+function getDisplayText(n) {
+    return (() => {
+        switch (n) {
+            case "C": {
+                num = null
+                total = 0
+                displayTotal = ""
+                return "|"
+            }
+            case "\u{000D7}": {return}  // multiply
+            case "\u{02212}": {return}  // subtract
+            case "\u{0002B}": {
+                if (displayTotal != "") {
+                    num = parseInt(displayTotal)
+                    total = add(num, total)
+                    displayTotal = ""
+                    return total
+                } else return document.getElementById("display").textContent
+            }  // add
+            case "\u{000F7}": {return}  // divide
+            case "\u{0003D}": {return}  // equals
+            default: return (displayTotal += n)
+        }
+    })()
+}
+
 // returns an html button element with click listener
 function createButton(n) {
     let button = document.createElement("button")
-    let displayText = (n == "C") ? "|" : n
     button.addEventListener("click", () => {
+        let displayText = getDisplayText(n)
         document.getElementById("display").textContent = displayText
     })
     button.textContent = n
