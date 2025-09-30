@@ -40,6 +40,17 @@ function operate(operator, num1, num2) {
 
 // HTML FUNCTIONS
 
+// creates 3 rows of calculator buttons
+function createMidSection(calculator) {
+    let buttonList = Array.apply(null, Array(9)).map((e, i) => createButton(i+1))
+    for (let i = 9; i > 0; i -= 3) {
+        let listSlice = buttonList.slice(i-3, i)
+        let operatorList = getOperatorList(listSlice, i)
+        let buttonContainer = getButtonContainer(operatorList)
+        calculator.append(buttonContainer)
+    }
+}
+
 // returns a container class of button elements
 function getButtonContainer(operatorList, section) {
     let container = document.createElement("div")
@@ -73,17 +84,6 @@ function createButton(n) {
     })
     button.textContent = n
     return button
-}
-
-// creates 3 rows of calculator buttons
-function createMidSection(calculator) {
-    let buttonList = Array.apply(null, Array(9)).map((e, i) => createButton(i+1))
-    for (let i = 9; i > 0; i -= 3) {
-        let listSlice = buttonList.slice(i-3, i)
-        let operatorList = getOperatorList(listSlice, i)
-        let buttonContainer = getButtonContainer(operatorList)
-        calculator.append(buttonContainer)
-    }
 }
 
 // displays 1 row of buttons
