@@ -1,3 +1,4 @@
+// global variables
 let a = null
 let op = null
 let displayTotal = ""
@@ -82,13 +83,12 @@ function getOperatorList(listSlice, i) {
 // returns the total having applied operation to variables
 function operate() {
     if (a != null && op != null && displayTotal != "") {
-        a = op(a, parseInt(displayTotal))
-        op = null
-        displayTotal = a
+        let temp = op(a, parseInt(displayTotal))
+        clearConsole()
+        a = temp
         return a
-    } else {
-        return document.getElementById("display").textContent
     }
+    else { return document.getElementById("display").textContent }
 }
 
 // returns the total having applied opertation to variables
@@ -98,16 +98,19 @@ function getTotal(func) {
         return document.getElementById("display").textContent
     } 
     else {
-        if (op == null) {
-            a = parseInt(displayTotal)
-            op = func
-        } else {
-            a = op(a, parseInt(displayTotal))
-            op = func
-        }
+        if (op == null) { a = parseInt(displayTotal) }
+        else { a = op(a, parseInt(displayTotal)) }
+        op = func
         displayTotal = ""
         return a
     }
+}
+
+// resets the global variables
+function clearConsole() {
+    a = null
+    op = null
+    displayTotal = ""
 }
 
 // returns text to be displayed on screen
@@ -115,9 +118,7 @@ function getDisplayText(n) {
     return (() => {
         switch (n) {
             case "C": {
-                let a = null
-                let op = null
-                displayTotal = ""
+                clearConsole()
                 return "|"
             }
             case "\u{000D7}": return getTotal(multiply) // multiply
