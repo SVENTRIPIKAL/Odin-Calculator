@@ -1,5 +1,5 @@
-let num = null
-let total = 0
+let a = null
+let op = null
 let displayTotal = ""
 
 // CALCULATION FUNCTIONS
@@ -79,28 +79,52 @@ function getOperatorList(listSlice, i) {
     return listSlice
 }
 
+// returns the total having applied operation to variables
+function operate() {
+    if (a != null && op != null && displayTotal != "") {
+        a = op(a, parseInt(displayTotal))
+        op = null
+        displayTotal = a
+        return a
+    } else {
+        return document.getElementById("display").textContent
+    }
+}
+
+// returns the total having applied opertation to variables
+function getTotal(func) {
+    if (displayTotal == "") {
+        if (a != null) { op = func }
+        return document.getElementById("display").textContent
+    } 
+    else {
+        if (op == null) {
+            a = parseInt(displayTotal)
+            op = func
+        } else {
+            a = op(a, parseInt(displayTotal))
+            op = func
+        }
+        displayTotal = ""
+        return a
+    }
+}
+
 // returns text to be displayed on screen
 function getDisplayText(n) {
     return (() => {
         switch (n) {
             case "C": {
-                num = null
-                total = 0
+                let a = null
+                let op = null
                 displayTotal = ""
                 return "|"
             }
-            case "\u{000D7}": {return}  // multiply
-            case "\u{02212}": {return}  // subtract
-            case "\u{0002B}": {
-                if (displayTotal != "") {
-                    num = parseInt(displayTotal)
-                    total = add(num, total)
-                    displayTotal = ""
-                    return total
-                } else return document.getElementById("display").textContent
-            }  // add
-            case "\u{000F7}": {return}  // divide
-            case "\u{0003D}": {return}  // equals
+            case "\u{000D7}": return getTotal(multiply) // multiply
+            case "\u{02212}": return getTotal(subtract) // subtract
+            case "\u{0002B}": return getTotal(add)      // add
+            case "\u{000F7}": return getTotal(divide)   // divide
+            case "\u{0003D}": return operate()          // equals
             default: return (displayTotal += n)
         }
     })()
