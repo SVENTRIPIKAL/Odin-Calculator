@@ -3,6 +3,7 @@ let a = null
 let op = null
 let displayTotal = ""
 
+
 // CALCULATION FUNCTIONS
 
 // adds two numbers
@@ -18,7 +19,7 @@ function multiply(a, b) { return a * b }
 function divide(a, b) {
     return (() => {
         switch (b) {
-            case 0: return "Cannot divide by 0";
+            case 0: return "Can't Divide By 0";
             default: return a / b;
         }
     })()
@@ -74,13 +75,20 @@ function getOperatorList(listSlice, i) {
     return listSlice
 }
 
+// resets the global variables
+function clearConsole() {
+    a = null
+    op = null
+    displayTotal = ""
+}
+
 // returns the total having applied operation to variables
 function operate() {
     if (a != null && op != null && displayTotal != "") {
         let temp = op(a, parseInt(displayTotal))
         clearConsole()
-        a = temp
-        return a
+        if (!isNaN(temp)) { a = temp }
+        return temp
     }
     else { return document.getElementById("display").textContent }
 }
@@ -98,13 +106,6 @@ function getTotal(func) {
         displayTotal = ""
         return a
     }
-}
-
-// resets the global variables
-function clearConsole() {
-    a = null
-    op = null
-    displayTotal = ""
 }
 
 // returns text to be displayed on screen

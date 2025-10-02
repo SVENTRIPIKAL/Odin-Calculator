@@ -9,7 +9,10 @@
 
 #display {
     padding: 20px;
-    font-size: xx-large;
+    width: 230px;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: x-large;
     text-align: end;
     border-radius: 10px;
     background-color: white;
